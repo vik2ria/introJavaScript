@@ -56,6 +56,64 @@ let selectedTagValue = document.getElementById('select');
 
 let textOnTagElement = document.getElementById('text');
 
+let makeNewTag = document.getElementById('create');
+
+makeNewTag.addEventListener('click', () => {
+    let newTag = document.createElement(selectedTagValue.value);
+    newTag.textContent = textOnTagElement.value;
+    targetPlaceForNewTagElement.appendChild(newTag);
+});
+
 // Oppgave 6
+
+let uList = document.getElementById('list');
+
+let removeListBtn = document.getElementById('remove-li');
+
+
+    
+removeListBtn.addEventListener('click', () => {
+    let numberOfChildren = uList.childElementCount - 1;
+
+    if(uList.childElementCount < 1){
+        let errorMassages = document.createElement('p');
+            errorMassages.textContent = 'Det er ingen li elementer å fjerne!';
+            uList.appendChild(errorMassages);
+    }else{ 
+        uList.removeChild(uList.children[numberOfChildren]);
+    }
+});
+
+
+
 // Oppgave 7
+
+let inputFromUser = document.getElementById('name');
+
+let disableBtn = document.getElementById('order');
+
+let nameFromUser;
+
+inputFromUser.addEventListener('input', () => {  
+    nameFromUser = inputFromUser.value;
+    let lenghtOfName = nameFromUser.length;
+    
+    if(lenghtOfName > 4){
+        disableBtn.style.border = 'thick solid red';
+        disableBtn.setAttribute('disabled'); 
+    }});
+
 // Oppgave 8
+
+let containerUl = document.querySelector('.children');
+
+let listToStyle = containerUl.children;
+
+let pushbtnToStyleLi = document.getElementById('color');
+
+pushbtnToStyleLi.addEventListener('click', () => {
+    console.log(listToStyle);
+
+    for (let i = 0; i < listToStyle.length; i++) {
+        listToStyle[i].style.border = 'thin solid red';
+    }});
