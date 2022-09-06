@@ -1,49 +1,55 @@
-import './styles.css';
-import { users } from './util';
 
-// TODO: Hent HTML #id med getElementById
-const searchInput = '';
-const filterInput = '';
-const filterButton = '';
-const userUl = '';
+//import './styles.css';
+import { users } from './util.js';
+
+const searchInput = document.getElementById('name');
+const filterInput = document.getElementById('age');
+const filterButton = document.getElementById('filter');
+const userUl = document.getElementById('users');
 
 const createTableUI = (users) => {
   userUl.innerHTML = null;
-  userUl.innerHTML += `<li><span>Id</span><span>Navn</span><span>Alder</span></li>`;
+  userUl.innerHTML += `<li><span>Id </span><span>Navn </span><span>Alder </span></li>`;
   for (const user of users) {
-    userUl.innerHTML += `<li><span>${user.id}</span><span>${user.name}</span><span>${user.age}</span></li>`;
+    userUl.innerHTML += `<li><span>${user.id} </span><span>${user.name} </span><span>${user.age} </span></li>`;
   }
 };
 
 const handleSearch = () => {
-  // TODO: Hent ut verdien fra søke input feltet
-  const searchName = '';
+
+  let searchName = searchInput.value;
+  searchName = searchName.charAt(0).toUpperCase() + searchName.slice(1);
+  
   if (searchName) {
-    // Bruk .find for å finne navnet til den brukeren som matcher søkeordet
-    const searchResult = '';
+  
+    const searchResult = users.find(element => element.name == searchName);
     if (searchResult) {
-      // TODO: Oppdatere grensesnittet med createTableUI og resultatet av søket
+      userUl.innerHTML = `<li><span>${searchResult.id} </span><span>${searchResult.name} </span><span>${searchResult.age} </span></li>`;
     } else {
-      // TODO: Oppdatere grensesnittet med userUl.innerHTML og en passende tekst når vi ikke finner noe
+      userUl.innerHTML = 'Ingen brukere funnet';
     }
   } else {
-    // TODO: Hvis ingen søkeord vis default liste med brukere via createTableUI
+    createTableUI(users);
   }
 };
 
 const handleFilter = () => {
-  // TODO: Hent ut verdien fra filter input feltet
-  const filterValue = '';
+
+  const filterValue = filterInput.value;
   if (filterValue && Number(filterValue)) {
-    // TODO: Bruk .filter for å hente ut de brukeren  som har en alder høyere en filterverdien
-    const filterResult = '';
+    const filterResult = users.filter(element => element.age >= filterValue);
+
     if (filterResult && filterResult.length > 0) {
-      // TODO: Oppdatere grensesnittet med createTableUI og resultatet av filteret
+    
+      userUl.innerHTML = `<li><span>Id </span><span>Navn </span><span>Alder </span></li>`;
+      for (const filteredUsers of filterResult) {
+        userUl.innerHTML += `<li><span>${filteredUsers.id} </span><span>${filteredUsers.name} </span><span>${filteredUsers.age} </span></li>`;
+      }
     } else {
-      // TODO: Oppdatere grensesnittet med userUl.innerHTML og en passende tekst når vi ikke finner noe
+      userUl.innerHTML = 'Ingen brukere funnet';
     }
   } else {
-    // TODO: Hvis ingen filter eller filteret ikke er et tall vis default liste med brukere via createTableUI
+    createTableUI(users);
   }
 };
 
